@@ -22,7 +22,11 @@ class LivroFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'titulo' => $this->faker->realText(10),
+            'genero' => $this->faker->realText(10),
+            'nacionalidade' => $this->faker->realText(20),
+            'sinopse' => $this->faker->realText(50),
+            'autor' => $this->faker->realText(20),
         ];
     }
 }

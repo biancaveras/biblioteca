@@ -14,8 +14,44 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('inicio');
+})->name('inicio');
+
+Route::get('/index-cliente', function () {
+    return view('indexcliente');
+})->name('indexcliente');
+
+Route::get('/novo-cliente', function () {
+    return view('novocliente');
+})->name('novocliente');
+
+Route::get('/index-funcionario', function () {
+    return view('indexfuncionario');
+})->name('indexfuncionario');
+
+Route::get('/novo-funcionario', function () {
+    return view('novofuncionario');
+})->name('novofuncionario');
+
+Route::get('/index-livro', function () {
+    return view('indexlivro');
+})->name('indexlivro');
+
+Route::get('/novo-livro', function () {
+    return view('novolivro');
+})->name('novolivro');
+
+Route::get('/novo-emprestimo', function () {
+    return view('novoemprestimo');
+})->name('novoemprestimo');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/esqueceusenha', function () {
+    return view('esqueceusenha');
+})->name('esqueceusenha');
 
 Route::get('/template', function () {
     return view('sitelayout.template');
