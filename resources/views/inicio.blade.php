@@ -82,6 +82,7 @@ SIB | Início
 								<th>Livro</th>
 								<th>Data de empréstimo</th>
 								<th>Data de devolução</th>
+								<th>Opções</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -91,6 +92,7 @@ SIB | Início
 								<th>Livro</th>
 								<th>Data de empréstimo</th>
 								<th>Data de devolução</th>
+								<th>Opções</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -100,6 +102,8 @@ SIB | Início
 								<td>Ela</td>
 								<td>2011/03/01</td>
 								<td>2011/04/25</td>
+								<td><a class="btn btn-success btn-sm" href="{{route('editaremprestimo')}}" role="button"><i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
 							</tr>
 							<tr>
 								<td>Adrian</td>
@@ -107,6 +111,8 @@ SIB | Início
 								<td>Tokyo</td>
 								<td>2011/03/01</td>
 								<td>2011/07/25</td>
+								<td><a class="btn btn-success btn-sm" href="{{route('editaremprestimo')}}" role="button"><i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
 							</tr>
 						</tbody>
 					</table>

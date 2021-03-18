@@ -24,9 +24,9 @@ SIB | Funcionários
 								<th>Estado</th>
 								<th>Cidade</th>
 								<th>Logradouro</th>
-								<th>Número</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								<th>Opções</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -37,9 +37,9 @@ SIB | Funcionários
 								<th>Estado</th>
 								<th>Cidade</th>
 								<th>Logradouro</th>
-								<th>Número</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								<th>Opções</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -50,9 +50,10 @@ SIB | Funcionários
 								<td>RN</td>
 								<td>Jucurutu</td>
 								<td>Rua das Flores</td>
-								<td>00</td>
 								<td>samara@hotmail.com</td>
 								<td>99658621</td>
+								<td><a class="btn btn-success btn-sm" href="{{route('editarfuncionario')}}" role="button"><i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
 							</tr>
 							<tr>
 								<td>Bianca</td>
@@ -61,9 +62,10 @@ SIB | Funcionários
 								<td>RN</td>
 								<td>Jucurutu</td>
 								<td>Rua das Flores</td>
-								<td>00</td>
 								<td>bianca@hotmail.com</td>
 								<td>99658621</td>
+								<td><a class="btn btn-success btn-sm" href="{{route('editarfuncionario')}}" role="button"><i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
 							</tr>
 						</tbody>
 					</table>

@@ -25,6 +25,10 @@ Route::get('/novo-cliente', function () {
     return view('novocliente');
 })->name('novocliente');
 
+Route::get('/editar-cliente', function () {
+    return view('editarcliente');
+})->name('editarcliente');
+
 Route::get('/index-funcionario', function () {
     return view('indexfuncionario');
 })->name('indexfuncionario');
@@ -32,6 +36,10 @@ Route::get('/index-funcionario', function () {
 Route::get('/novo-funcionario', function () {
     return view('novofuncionario');
 })->name('novofuncionario');
+
+Route::get('/editar-funcionario', function () {
+    return view('editarfuncionario');
+})->name('editarfuncionario');
 
 Route::get('/index-livro', function () {
     return view('indexlivro');
@@ -41,9 +49,17 @@ Route::get('/novo-livro', function () {
     return view('novolivro');
 })->name('novolivro');
 
+Route::get('/editar-livro', function () {
+    return view('editarlivro');
+})->name('editarlivro');
+
 Route::get('/novo-emprestimo', function () {
     return view('novoemprestimo');
 })->name('novoemprestimo');
+
+Route::get('/editar-emprestimo', function () {
+    return view('editaremprestimo');
+})->name('editaremprestimo');
 
 Route::get('/login', function () {
     return view('login');
@@ -56,3 +72,4 @@ Route::get('/esqueceusenha', function () {
 Route::get('/template', function () {
     return view('sitelayout.template');
 });
+
