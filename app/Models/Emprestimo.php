@@ -12,6 +12,17 @@ class Emprestimo extends Model
 {
     use HasFactory;
 
+    protected $table = 'emprestimos';
+
+    protected $fillable = [
+        'dt_inicio',
+        'dt_fim',
+        'livro_id',
+        'cliente_id',
+        'funcionario_id',
+
+    ];
+
     public function cliente()
     {
     	return $this->belongsTo(Cliente::class);
@@ -24,7 +35,7 @@ class Emprestimo extends Model
 
     }
 
-    public function cliente()
+    public function livro()
     {
     	return $this->belongsTo(Livro::class);
 

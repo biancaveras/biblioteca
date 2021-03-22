@@ -16,10 +16,6 @@ use App\Http\Controllers\LivroController;
 |
 */
 
-Route::get('/', function () {
-    return view('inicio');
-})->name('inicio');
-
 //CLIENTE 
 
 Route::get('/index-cliente', 
@@ -101,13 +97,30 @@ Route::put('/update-livro/{id}',
 
 // EMPRESTIMO
 
-Route::get('/novo-emprestimo', function () {
-    return view('novoemprestimo');
-})->name('novoemprestimo');
+Route::get('/', 
+    [EmprestimoController::class, 'index'])
+->name('emprestimo.index');
 
-Route::get('/editar-emprestimo', function () {
-    return view('editaremprestimo');
-})->name('editaremprestimo');
+Route::get('/novo-emprestimo/create', 
+    [EmprestimoController::class,'criar']
+)->name('emprestimo.create');
+
+Route::post('/novo-emprestimo/salvar', 
+    [EmprestimoController::class,'salvar']
+)->name('emprestimo.salvar');
+
+Route::delete('/excluir-emprestimo/{id}', 
+    [EmprestimoController::class, 'excluir'])
+->name('emprestimo.excluir');
+
+Route::get('/editar-emprestimo/{id}', 
+    [EmprestimoController::class, 'editar'])
+->name('emprestimo.editar');
+
+Route::put('/update-emprestimo/{id}', 
+    [EmprestimoController::class, 'update'])
+->name('emprestimo.update');
+
 
 Route::get('/login', function () {
     return view('login');

@@ -33,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('inicio')}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('emprestimo.index')}}">
                
                 <img src="{{asset('resume/img/logo.png')}}" style="width: 70px">
               
@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('inicio')}}">
+                <a class="nav-link" href="{{route('emprestimo.index')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Início</span></a>
             </li>
@@ -101,8 +101,8 @@
                 <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Empréstimos</h6>
-                        <a class="collapse-item" href="{{route('inicio')}}">Index</a>
-                        <a class="collapse-item" href="{{route('novoemprestimo')}}">Novo Empréstimo</a>
+                        <a class="collapse-item" href="{{route('emprestimo.index')}}">Index</a>
+                        <a class="collapse-item" href="{{route('emprestimo.create')}}">Novo Empréstimo</a>
                     </div>
                 </div>
             </li>

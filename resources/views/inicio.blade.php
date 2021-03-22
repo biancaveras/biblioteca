@@ -13,7 +13,7 @@ SIB | Início
 		<div class="card border-left-info shadow h-100 py-2">
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
-					<a href="{{route('novoemprestimo')}}"> 
+					<a href="{{route('emprestimo.create')}}"> 
 						<div class="col mr-2">
 							<div class="row no-gutters align-items-center">
 								<div class="col-auto">
@@ -96,24 +96,24 @@ SIB | Início
 							</tr>
 						</tfoot>
 						<tbody>
-							<tr>
-								<td>Sâmara</td>
-								<td>Bianca</td>
-								<td>Ela</td>
-								<td>2011/03/01</td>
-								<td>2011/04/25</td>
-								<td><a class="btn btn-success btn-sm" href="{{route('editaremprestimo')}}" role="button"><i class="fas fa-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
+							@foreach ( $emprestimos as $emprestimo )	
+							<tr>							
+								<td>{{ $emprestimo->cliente->nome }}</td>
+								<td>{{ $emprestimo->funcionario->nome }}</td>
+								<td>{{ $emprestimo->livro->titulo }}</td>
+								<td>{{ \Carbon\Carbon::parse($emprestimo->dt_inicio)->format('d/m/Y')}} </td>
+								<td>{{ \Carbon\Carbon::parse($emprestimo->dt_fim)->format('d/m/Y')}}</td>
+								
+								<td>
+									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('emprestimo.editar', [$emprestimo->id])}}'"><i class="fas fa-edit"></i></button>
+									<form action="{{route('emprestimo.excluir', [$emprestimo->id])}}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+									</form>
+								</td>
 							</tr>
-							<tr>
-								<td>Adrian</td>
-								<td>Bianca</td>
-								<td>Tokyo</td>
-								<td>2011/03/01</td>
-								<td>2011/07/25</td>
-								<td><a class="btn btn-success btn-sm" href="{{route('editaremprestimo')}}" role="button"><i class="fas fa-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
-							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>
