@@ -15,4 +15,17 @@ class Cliente extends Model
     	return $this->hasMany(Emprestimo::class);
 
     }
+
+    protected $table = 'clientes';
+
+	protected $fillable = [
+		'nome',
+		'cpf',
+		'estado',
+		'logradouro',
+		'cidade',
+		'numero',
+		'email',
+		'telefone',
+	];
 }

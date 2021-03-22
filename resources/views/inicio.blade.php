@@ -32,7 +32,7 @@ SIB | Início
 		<div class="card border-left-info shadow h-100 py-2">
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
-					<a href="{{route('novolivro')}}"> 
+					<a href="{{route('livro.create')}}"> 
 						<div class="col mr-2">
 							<div class="row no-gutters align-items-center">
 								<div class="col-auto">
@@ -51,7 +51,7 @@ SIB | Início
 		<div class="card border-left-info shadow h-100 py-2">
 			<div class="card-body">
 				<div class="row no-gutters align-items-center">
-					<a href="{{route('novocliente')}}"> 
+					<a href="{{route('cliente.create')}}"> 
 						<div class="col mr-2">
 							<div class="row no-gutters align-items-center">
 								<div class="col-auto">

@@ -15,4 +15,14 @@ class Livro extends Model
     	return $this->hasMany(Emprestimo::class);
 
     }
+
+    protected $table = 'livros';
+
+    protected $fillable = [
+        'titulo',
+        'genero',
+        'nacionalidade',
+        'autor',
+        'sinopse',
+    ];
 }

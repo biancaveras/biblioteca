@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                             id="exampleInputEmail" aria-describedby="emailHelp"
-                                            placeholder="Digite seu e-mail...">
+                                            placeholder="Digite seu e-mail">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -60,11 +60,7 @@
                                         <a  href="{{route('inicio')}}" class="btn btn-info btn-user btn-block">
                                             Login
                                         </a>
-                                        <hr>
                                     </form>
-                                    <div class="text-center">
-                                        <a class="small" href="{{route('esqueceusenha')}}">Esqueceu a senha?</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

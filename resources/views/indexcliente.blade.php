@@ -20,9 +20,7 @@ SIB | Clientes
 							<tr>
 								<th>Nome</th>
 								<th>CPF</th>
-								<th>Estado</th>
-								<th>Cidade</th>
-								<th>Logradouro</th>
+								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
 								<th>Opções</th>
@@ -32,37 +30,31 @@ SIB | Clientes
 							<tr>
 								<th>Nome</th>
 								<th>CPF</th>
-								<th>Estado</th>
-								<th>Cidade</th>
-								<th>Logradouro</th>
+								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
 								<th>Opções</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							<tr>
-								<td>Sâmara</td>
-								<td>5454554545</td>
-								<td>RN</td>
-								<td>Jucurutu</td>
-								<td>Rua das Flores</td>
-								<td>samara@hotmail.com</td>
-								<td>99655666</td>
-								<td><a class="btn btn-success btn-sm" href="{{route('editarcliente')}}" role="button"><i class="fas fa-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
+							@foreach ( $clientes as $cliente )	
+							<tr>							
+								<td>{{ $cliente->nome }}</td>
+								<td>{{ $cliente->cpf }}</td>
+								<td>{{ $cliente->logradouro }}, {{ $cliente->numero }}. {{ $cliente->cidade }}/{{ $cliente->estado }}</td>
+								<td>{{ $cliente->email }}</td>
+								<td>{{ $cliente->telefone }}</td>
+								
+								<td>
+									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('cliente.editar', [$cliente->id])}}'"><i class="fas fa-edit"></i></button>
+									<form action="{{route('cliente.excluir', [$cliente->id])}}" method="POST">
+										@csrf
+										@method('DELETE')
+										<button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
+									</form>
+								</td>
 							</tr>
-							<tr>
-								<td>Bianca</td>
-								<td>123124231</td>
-								<td>RN</td>
-								<td>Jucurutu</td>
-								<td>Rua das Flores</td>
-								<td>bianca@hotmail.com</td>
-								<td>9556656</td>
-								<td><a class="btn btn-success btn-sm" href="{{route('editarcliente')}}" role="button"><i class="fas fa-edit"></i></a>
-                                <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></td>
-							</tr>
+							@endforeach
 						</tbody>
 					</table>
 				</div>

@@ -8,11 +8,25 @@ use App\Models\Emprestimo;
 
 class Funcionario extends Model
 {
-    use HasFactory;
+	use HasFactory;
 
-    public function emprestimos()
-    {
-    	return $this->hasMany(Emprestimo::class);
+	public function emprestimos()
+	{
+		return $this->hasMany(Emprestimo::class);
 
-    }
+	}
+
+	protected $table = 'funcionarios';
+
+	protected $fillable = [
+		'nome',
+		'cpf',
+		'funcao',
+		'estado',
+		'logradouro',
+		'cidade',
+		'numero',
+		'email',
+		'telefone',
+	];
 }

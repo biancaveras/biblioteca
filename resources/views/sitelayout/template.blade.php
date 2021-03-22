@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
@@ -59,8 +59,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Clientes</h6>
-                        <a class="collapse-item" href="{{route('indexcliente')}}">Index</a>
-                        <a class="collapse-item" href="{{route('novocliente')}}">Novo Cliente</a>
+                        <a class="collapse-item" href="{{route('cliente.index')}}">Index</a>
+                        <a class="collapse-item" href="{{route('cliente.create')}}">Novo Cliente</a>
                     </div>
                 </div>
             </li>
@@ -73,8 +73,8 @@
                 <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Funcionários</h6>
-                        <a class="collapse-item" href="{{route('indexfuncionario')}}">Index</a>
-                        <a class="collapse-item" href="{{route('novofuncionario')}}">Novo Funcionário</a>
+                        <a class="collapse-item" href="{{route('funcionario.index')}}">Index</a>
+                        <a class="collapse-item" href="{{route('funcionario.create')}}">Novo Funcionário</a>
                     </div>
                 </div>
             </li>
@@ -87,8 +87,8 @@
                 <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Livros</h6>
-                        <a class="collapse-item" href="{{route('indexlivro')}}">Index</a>
-                        <a class="collapse-item" href="{{route('novolivro')}}">Novo Livro</a>
+                        <a class="collapse-item" href="{{route('livro.index')}}">Index</a>
+                        <a class="collapse-item" href="{{route('livro.create')}}">Novo Livro</a>
                     </div>
                 </div>
             </li>
@@ -110,7 +110,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('login')}}">
                     <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span></a>
+                    <span>Sair</span></a>
             </li>
 
         </ul>
