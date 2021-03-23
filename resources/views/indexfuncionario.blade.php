@@ -24,7 +24,9 @@ SIB | Funcionários
 								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</thead>
 						<tfoot>
@@ -35,7 +37,9 @@ SIB | Funcionários
 								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</tfoot>
 						<tbody>
@@ -47,7 +51,7 @@ SIB | Funcionários
 								<td>{{ $funcionario->logradouro }}, {{ $funcionario->numero }}. {{ $funcionario->cidade }}/{{ $funcionario->estado }}</td>
 								<td>{{ $funcionario->email }}</td>
 								<td>{{ $funcionario->telefone }}</td>
-								
+								@can('super-user')
 								<td>
 									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('funcionario.editar', [$funcionario->id])}}'"><i class="fas fa-edit"></i></button>
 									<form action="{{route('funcionario.excluir', [$funcionario->id])}}" method="POST">
@@ -56,6 +60,7 @@ SIB | Funcionários
 										<button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
 									</form>
 								</td>
+								@endcan
 							</tr>
 							@endforeach
 						</tbody>

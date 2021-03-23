@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\Emprestimo;
+use Illuminate\Support\Facades\Gate;
 
 class ClienteController extends Controller
 {
@@ -20,33 +22,44 @@ class ClienteController extends Controller
 
     public function criar()
     {
-        return view('novocliente');
+        if(Gate::allows('super-user')){
+            return view('novocliente');
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
+        
     }
 
     public function salvar(Request $request)
     {
-        $nome = $request->post('nome');
-        $cpf = $request->post('cpf');
-        $estado = $request->post('estado');
-        $logradouro = $request->post('logradouro');
-        $cidade = $request->post('cidade');
-        $numero = $request->post('numero');
-        $email = $request->post('email');
-        $telefone = $request->post('telefone');
+        $resposta = Gate::inspect('super-user');
 
-        $cliente = new Cliente;
-        $cliente->cpf = $cpf;
-        $cliente->nome = $nome;
-        $cliente->numero = $numero;
-        $cliente->estado = $estado;
-        $cliente->logradouro = $logradouro;
-        $cliente->cidade = $cidade;
-        $cliente->email = $email;
-        $cliente->telefone = $telefone;
-        
-        $cliente->save(); //insert
+        if($resposta->allowed()){
 
-        return redirect()->to(route('cliente.index'));
+            $nome = $request->post('nome');
+            $cpf = $request->post('cpf');
+            $estado = $request->post('estado');
+            $logradouro = $request->post('logradouro');
+            $cidade = $request->post('cidade');
+            $numero = $request->post('numero');
+            $email = $request->post('email');
+            $telefone = $request->post('telefone');
+
+            $cliente = new Cliente;
+            $cliente->cpf = $cpf;
+            $cliente->nome = $nome;
+            $cliente->numero = $numero;
+            $cliente->estado = $estado;
+            $cliente->logradouro = $logradouro;
+            $cliente->cidade = $cidade;
+            $cliente->email = $email;
+            $cliente->telefone = $telefone;
+
+            $cliente->save(); //insert
+            return redirect()->to(route('cliente.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
      /**
@@ -55,13 +68,24 @@ class ClienteController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function excluir($id)
-    {
-        // delete
-        $cliente = Cliente::find($id);
-        $cliente->delete();
+     public function excluir($id)
+     {
 
-        return redirect()->to(route('cliente.index'));
+        if(Gate::allows('super-user')){
+            // delete
+            $emprestimos = Emprestimo::all();
+            foreach ( $emprestimos as $emprestimo ){
+                if($emprestimo->cliente_id==$id){
+                    $emprestimo->delete();
+                }
+            }
+            $cliente = Cliente::find($id);
+            $cliente->delete();
+            return redirect()->to(route('cliente.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
+
     }
 
     /**
@@ -72,12 +96,17 @@ class ClienteController extends Controller
      */
     public function editar($id)
     {
-        $cliente = Cliente::find($id);
-        if ($cliente) {
-            return view('editarcliente')->with('cliente', $cliente);
+        if(Gate::allows('super-user')){
+            $cliente = Cliente::find($id);
+            if ($cliente) {
+                return view('editarcliente')->with('cliente', $cliente);
+            }else{
+                return redirect(route('cliente.index'));
+            }
         }else{
-            return redirect(route('cliente.index'))->with('alert-danger', 'Cliente inexistente!');
+            return redirect(route('emprestimo.index'));
         }
+        
     }
 
     /**
@@ -89,22 +118,26 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cliente = Cliente::find($id);
+        if(Gate::allows('super-user')){
+            $cliente = Cliente::find($id);
 
-        if ($cliente) {
-            $cliente->update([
-                'nome' => $request->nome,
-                'cpf' => $request->cpf,
-                'estado' =>$request->estado,
-                'logradouro' =>$request->logradouro,
-                'cidade' =>$request->cidade,
-                'numero' =>$request->numero,
-                'email' =>$request->email,
-                'telefone' =>$request->telefone,
-            ]);
-            return redirect(route('cliente.index'));
+            if ($cliente) {
+                $cliente->update([
+                    'nome' => $request->nome,
+                    'cpf' => $request->cpf,
+                    'estado' =>$request->estado,
+                    'logradouro' =>$request->logradouro,
+                    'cidade' =>$request->cidade,
+                    'numero' =>$request->numero,
+                    'email' =>$request->email,
+                    'telefone' =>$request->telefone,
+                ]);
+                return redirect(route('cliente.index'));
+            }else{
+                return redirect(route('cliente.index'));
+            }
         }else{
-            return redirect(route('cliente.index'));
+            return redirect()->to(route('emprestimo.index'));
         }
 
     }

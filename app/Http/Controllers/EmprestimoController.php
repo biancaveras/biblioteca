@@ -7,7 +7,7 @@ use App\Models\Livro;
 use App\Models\Funcionario;
 use App\Models\Emprestimo;
 use App\Models\Cliente;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use App\Providers\RouteServiceProvider;
 
 class EmprestimoController extends Controller
@@ -34,32 +34,40 @@ class EmprestimoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function criar()
-    {
-        $funcionarios = Funcionario::all();
-        $clientes = Cliente::all();
-        $livros = Livro::all();
-        return view('novoemprestimo')->with('funcionarios', $funcionarios)->with('clientes', $clientes)->with('livros', $livros);
+    {   
+        if(Gate::allows('super-user')){
+            $funcionarios = Funcionario::all();
+            $clientes = Cliente::all();
+            $livros = Livro::all();
+            return view('novoemprestimo')->with('funcionarios', $funcionarios)->with('clientes', $clientes)->with('livros', $livros);
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     public function salvar(Request $request)
     {
-        $dt_inicio = $request->post('dt_inicio');
-        $dt_fim = $request->post('dt_fim');
-        $cliente = $request->post('cliente');
-        $funcionario = $request->post('funcionario');
-        $livro = $request->post('livro');
+        if(Gate::allows('super-user')){
+            $dt_inicio = $request->post('dt_inicio');
+            $dt_fim = $request->post('dt_fim');
+            $cliente = $request->post('cliente');
+            $funcionario = $request->post('funcionario');
+            $livro = $request->post('livro');
 
 
-        $emprestimo = new Emprestimo;
-        $emprestimo->dt_inicio = $dt_inicio;
-        $emprestimo->dt_fim = $dt_fim;
-        $emprestimo->cliente_id = $cliente;
-        $emprestimo->funcionario_id = $funcionario;
-        $emprestimo->livro_id = $livro;
+            $emprestimo = new Emprestimo;
+            $emprestimo->dt_inicio = $dt_inicio;
+            $emprestimo->dt_fim = $dt_fim;
+            $emprestimo->cliente_id = $cliente;
+            $emprestimo->funcionario_id = $funcionario;
+            $emprestimo->livro_id = $livro;
 
-        $emprestimo->save(); //insert
+            $emprestimo->save(); //insert
 
-        return redirect()->to(route('emprestimo.index'));
+            return redirect()->to(route('emprestimo.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
      /**
@@ -70,11 +78,15 @@ class EmprestimoController extends Controller
         */
      public function excluir($id)
      {
+        if(Gate::allows('super-user')){
         // delete
-        $emprestimo = Emprestimo::find($id);
-        $emprestimo->delete();
+            $emprestimo = Emprestimo::find($id);
+            $emprestimo->delete();
 
-        return redirect()->to(route('emprestimo.index'));
+            return redirect()->to(route('emprestimo.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     /**
@@ -85,14 +97,18 @@ class EmprestimoController extends Controller
      */
     public function editar($id)
     {
-        $emprestimo = Emprestimo::find($id);
-        $funcionarios = Funcionario::all();
-        $clientes = Cliente::all();
-        $livros = Livro::all();
-        if ($emprestimo) {
-            return view('editaremprestimo')->with('funcionarios', $funcionarios)->with('clientes', $clientes)->with('livros', $livros)->with('emprestimo', $emprestimo);
+        if(Gate::allows('super-user')){
+            $emprestimo = Emprestimo::find($id);
+            $funcionarios = Funcionario::all();
+            $clientes = Cliente::all();
+            $livros = Livro::all();
+            if ($emprestimo) {
+                return view('editaremprestimo')->with('funcionarios', $funcionarios)->with('clientes', $clientes)->with('livros', $livros)->with('emprestimo', $emprestimo);
+            }else{
+                return redirect(route('emprestimo.index'))->with('alert-danger', 'Empréstimo inexistente!');
+            }
         }else{
-            return redirect(route('emprestimo.index'))->with('alert-danger', 'Empréstimo inexistente!');
+            return redirect()->to(route('emprestimo.index'));
         }
     }
 
@@ -104,20 +120,24 @@ class EmprestimoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $emprestimo = Emprestimo::find($id);
+    {   
+        if(Gate::allows('super-user')){
+            $emprestimo = Emprestimo::find($id);
 
-        if ($emprestimo) {
-            $emprestimo->update([
-                'dt_inicio' => $request->dt_inicio,
-                'dt_fim' => $request->dt_fim,
-                'cliente_id' =>$request->cliente_id,
-                'funcionario_id' =>$request->funcionario_id,
-                'livro_id' =>$request->livro_id,
-            ]);
-            return redirect(route('emprestimo.index'));
+            if ($emprestimo) {
+                $emprestimo->update([
+                    'dt_inicio' => $request->dt_inicio,
+                    'dt_fim' => $request->dt_fim,
+                    'cliente_id' =>$request->cliente_id,
+                    'funcionario_id' =>$request->funcionario_id,
+                    'livro_id' =>$request->livro_id,
+                ]);
+                return redirect(route('emprestimo.index'));
+            }else{
+                return "erro";
+            }
         }else{
-            return "erro";
+            return redirect()->to(route('emprestimo.index'));
         }
 
     }

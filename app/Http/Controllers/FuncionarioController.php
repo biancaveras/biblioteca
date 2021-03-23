@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Emprestimo;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Funcionario;
 
 class FuncionarioController extends Controller
@@ -18,36 +20,44 @@ class FuncionarioController extends Controller
     }
 
     public function criar()
-    {
-        return view('novofuncionario');
+    {   
+        if(Gate::allows('super-user')){
+            return view('novofuncionario');
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     public function salvar(Request $request)
     {
-        $nome = $request->post('nome');
-        $cpf = $request->post('cpf');
-        $funcao = $request->post('funcao');
-        $estado = $request->post('estado');
-        $logradouro = $request->post('logradouro');
-        $cidade = $request->post('cidade');
-        $numero = $request->post('numero');
-        $email = $request->post('email');
-        $telefone = $request->post('telefone');
+        if(Gate::allows('super-user')){
+            $nome = $request->post('nome');
+            $cpf = $request->post('cpf');
+            $funcao = $request->post('funcao');
+            $estado = $request->post('estado');
+            $logradouro = $request->post('logradouro');
+            $cidade = $request->post('cidade');
+            $numero = $request->post('numero');
+            $email = $request->post('email');
+            $telefone = $request->post('telefone');
 
-        $funcionario = new Funcionario;
-        $funcionario->cpf = $cpf;
-        $funcionario->funcao = $funcao;
-        $funcionario->nome = $nome;
-        $funcionario->numero = $numero;
-        $funcionario->estado = $estado;
-        $funcionario->logradouro = $logradouro;
-        $funcionario->cidade = $cidade;
-        $funcionario->email = $email;
-        $funcionario->telefone = $telefone;
-        
-        $funcionario->save(); //insert
+            $funcionario = new Funcionario;
+            $funcionario->cpf = $cpf;
+            $funcionario->funcao = $funcao;
+            $funcionario->nome = $nome;
+            $funcionario->numero = $numero;
+            $funcionario->estado = $estado;
+            $funcionario->logradouro = $logradouro;
+            $funcionario->cidade = $cidade;
+            $funcionario->email = $email;
+            $funcionario->telefone = $telefone;
 
-        return redirect()->to(route('funcionario.index'));
+            $funcionario->save(); //insert
+
+            return redirect()->to(route('funcionario.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
      /**
@@ -56,13 +66,23 @@ class FuncionarioController extends Controller
         * @param  int  $id
         * @return Response
         */
-    public function excluir($id)
-    {
+     public function excluir($id)
+     {
+        if(Gate::allows('super-user')){
         // delete
-        $funcionario = Funcionario::find($id);
-        $funcionario->delete();
+            $emprestimos = Emprestimo::all();
+            foreach ( $emprestimos as $emprestimo ){
+                if($emprestimo->funcionario_id==$id){
+                    $emprestimo->delete();
+                }
+            }
+            $funcionario = Funcionario::find($id);
+            $funcionario->delete();
 
-        return redirect()->to(route('funcionario.index'));
+            return redirect()->to(route('funcionario.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     /**
@@ -73,11 +93,15 @@ class FuncionarioController extends Controller
      */
     public function editar($id)
     {
-        $funcionario = Funcionario::find($id);
-        if ($funcionario) {
-            return view('editarfuncionario')->with('funcionario', $funcionario);
+        if(Gate::allows('super-user')){
+            $funcionario = Funcionario::find($id);
+            if ($funcionario) {
+                return view('editarfuncionario')->with('funcionario', $funcionario);
+            }else{
+                return redirect(route('funcionario.index'));
+            }
         }else{
-            return redirect(route('funcionario.index'))->with('alert-danger', 'Funcionário inexistente!');
+            return redirect()->to(route('emprestimo.index'));
         }
     }
 
@@ -90,23 +114,27 @@ class FuncionarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $funcionario = Funcionario::find($id);
+        if(Gate::allows('super-user')){
+            $funcionario = Funcionario::find($id);
 
-        if ($funcionario) {
-            $funcionario->update([
-                'nome' => $request->nome,
-                'cpf' => $request->cpf,
-                'funcao' => $request->funcao,
-                'estado' =>$request->estado,
-                'logradouro' =>$request->logradouro,
-                'cidade' =>$request->cidade,
-                'numero' =>$request->numero,
-                'email' =>$request->email,
-                'telefone' =>$request->telefone,
-            ]);
-            return redirect(route('funcionario.index'));
+            if ($funcionario) {
+                $funcionario->update([
+                    'nome' => $request->nome,
+                    'cpf' => $request->cpf,
+                    'funcao' => $request->funcao,
+                    'estado' =>$request->estado,
+                    'logradouro' =>$request->logradouro,
+                    'cidade' =>$request->cidade,
+                    'numero' =>$request->numero,
+                    'email' =>$request->email,
+                    'telefone' =>$request->telefone,
+                ]);
+                return redirect(route('funcionario.index'));
+            }else{
+                return redirect(route('funcionario.index'));
+            }
         }else{
-            return redirect(route('funcionario.index'));
+            return redirect(route('emprestimo.index'));
         }
 
     }

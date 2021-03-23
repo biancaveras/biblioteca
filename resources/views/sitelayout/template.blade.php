@@ -60,7 +60,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Clientes</h6>
                         <a class="collapse-item" href="{{route('cliente.index')}}">Index</a>
+                        @can('super-user')
                         <a class="collapse-item" href="{{route('cliente.create')}}">Novo Cliente</a>
+                        @endcan
                     </div>
                 </div>
             </li>
@@ -74,7 +76,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Funcionários</h6>
                         <a class="collapse-item" href="{{route('funcionario.index')}}">Index</a>
+                        @can('super-user')
                         <a class="collapse-item" href="{{route('funcionario.create')}}">Novo Funcionário</a>
+                        @endcan
                     </div>
                 </div>
             </li>
@@ -88,7 +92,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Livros</h6>
                         <a class="collapse-item" href="{{route('livro.index')}}">Index</a>
+                        @can('super-user')
                         <a class="collapse-item" href="{{route('livro.create')}}">Novo Livro</a>
+                        @endcan
                     </div>
                 </div>
             </li>
@@ -102,7 +108,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Empréstimos</h6>
                         <a class="collapse-item" href="{{route('emprestimo.index')}}">Index</a>
+                        @can('super-user')
                         <a class="collapse-item" href="{{route('emprestimo.create')}}">Novo Empréstimo</a>
+                        @endcan
                     </div>
                 </div>
             </li>

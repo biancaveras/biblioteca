@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Emprestimo;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Livro;
 
 class LivroController extends Controller
@@ -19,28 +21,36 @@ class LivroController extends Controller
 
     public function criar()
     {
-        return view('novolivro');
+        if(Gate::allows('super-user')){
+            return view('novolivro');
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     public function salvar(Request $request)
     {
-        $titulo = $request->post('titulo');
-        $genero = $request->post('genero');
-        $nacionalidade = $request->post('nacionalidade');
-        $autor = $request->post('autor');
-        $sinopse = $request->post('sinopse');
+        if(Gate::allows('super-user')){
+            $titulo = $request->post('titulo');
+            $genero = $request->post('genero');
+            $nacionalidade = $request->post('nacionalidade');
+            $autor = $request->post('autor');
+            $sinopse = $request->post('sinopse');
 
 
-        $livro = new Livro;
-        $livro->titulo = $titulo;
-        $livro->genero = $genero;
-        $livro->nacionalidade = $nacionalidade;
-        $livro->autor = $autor;
-        $livro->sinopse = $sinopse;
-        
-        $livro->save(); //insert
+            $livro = new Livro;
+            $livro->titulo = $titulo;
+            $livro->genero = $genero;
+            $livro->nacionalidade = $nacionalidade;
+            $livro->autor = $autor;
+            $livro->sinopse = $sinopse;
 
-        return redirect()->to(route('livro.index'));
+            $livro->save(); //insert
+
+            return redirect()->to(route('livro.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
      /**
@@ -52,10 +62,20 @@ class LivroController extends Controller
      public function excluir($id)
      {
         // delete
-        $livro = Livro::find($id);
-        $livro->delete();
+        if(Gate::allows('super-user')){
+            $emprestimos = Emprestimo::all();
+            foreach ( $emprestimos as $emprestimo ){
+                if($emprestimo->livro_id==$id){
+                    $emprestimo->delete();
+                }
+            }
+            $livro = Livro::find($id);
+            $livro->delete();
 
-        return redirect()->to(route('livro.index'));
+            return redirect()->to(route('livro.index'));
+        }else{
+            return redirect()->to(route('emprestimo.index'));
+        }
     }
 
     /**
@@ -66,11 +86,15 @@ class LivroController extends Controller
      */
     public function editar($id)
     {
-        $livro = Livro::find($id);
-        if ($livro) {
-            return view('editarlivro')->with('livro', $livro);
+        if(Gate::allows('super-user')){
+            $livro = Livro::find($id);
+            if ($livro) {
+                return view('editarlivro')->with('livro', $livro);
+            }else{
+                return redirect(route('livro.index'))->with('alert-danger', 'Livro inexistente!');
+            }
         }else{
-            return redirect(route('livro.index'))->with('alert-danger', 'Livro inexistente!');
+            return redirect()->to(route('emprestimo.index'));
         }
     }
 
@@ -83,19 +107,23 @@ class LivroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $livro = Livro::find($id);
+        if(Gate::allows('super-user')){
+            $livro = Livro::find($id);
 
-        if ($livro) {
-            $livro->update([
-                'titulo' => $request->titulo,
-                'genero' => $request->genero,
-                'nacionalidade' => $request->nacionalidade,
-                'sinopse' =>$request->sinopse,
-                'autor' =>$request->autor,
-            ]);
-            return redirect(route('livro.index'));
+            if ($livro) {
+                $livro->update([
+                    'titulo' => $request->titulo,
+                    'genero' => $request->genero,
+                    'nacionalidade' => $request->nacionalidade,
+                    'sinopse' =>$request->sinopse,
+                    'autor' =>$request->autor,
+                ]);
+                return redirect(route('livro.index'));
+            }else{
+                return redirect(route('livro.index'));
+            }
         }else{
-            return redirect(route('livro.index'));
+            return redirect()->to(route('emprestimo.index'));
         }
 
     }

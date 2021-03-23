@@ -8,6 +8,7 @@ SIB | Início
 
 <div class="row">
 
+	@can('super-user')
 	<!-- card1 -->
 	<div class="col-xl-4 col-md-6 mb-4 " >
 		<div class="card border-left-info shadow h-100 py-2">
@@ -65,6 +66,7 @@ SIB | Início
 			</div>
 		</div>
 	</div>
+	@endcan
 
 	<div class="container-fluid">
 
@@ -82,7 +84,9 @@ SIB | Início
 								<th>Livro</th>
 								<th>Data de empréstimo</th>
 								<th>Data de devolução</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</thead>
 						<tfoot>
@@ -92,7 +96,9 @@ SIB | Início
 								<th>Livro</th>
 								<th>Data de empréstimo</th>
 								<th>Data de devolução</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</tfoot>
 						<tbody>
@@ -103,7 +109,7 @@ SIB | Início
 								<td>{{ $emprestimo->livro->titulo }}</td>
 								<td>{{ \Carbon\Carbon::parse($emprestimo->dt_inicio)->format('d/m/Y')}} </td>
 								<td>{{ \Carbon\Carbon::parse($emprestimo->dt_fim)->format('d/m/Y')}}</td>
-								
+								@can('super-user')
 								<td>
 									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('emprestimo.editar', [$emprestimo->id])}}'"><i class="fas fa-edit"></i></button>
 									<form action="{{route('emprestimo.excluir', [$emprestimo->id])}}" method="POST">
@@ -112,6 +118,7 @@ SIB | Início
 										<button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
 									</form>
 								</td>
+								@endcan
 							</tr>
 							@endforeach
 						</tbody>

@@ -23,7 +23,9 @@ SIB | Clientes
 								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</thead>
 						<tfoot>
@@ -33,7 +35,9 @@ SIB | Clientes
 								<th>Endereço</th>
 								<th>E-mail</th>
 								<th>Telefone</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</tfoot>
 						<tbody>
@@ -44,7 +48,7 @@ SIB | Clientes
 								<td>{{ $cliente->logradouro }}, {{ $cliente->numero }}. {{ $cliente->cidade }}/{{ $cliente->estado }}</td>
 								<td>{{ $cliente->email }}</td>
 								<td>{{ $cliente->telefone }}</td>
-								
+								@can('super-user')
 								<td>
 									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('cliente.editar', [$cliente->id])}}'"><i class="fas fa-edit"></i></button>
 									<form action="{{route('cliente.excluir', [$cliente->id])}}" method="POST">
@@ -53,6 +57,7 @@ SIB | Clientes
 										<button class="btn btn-danger btn-sm" type="submit"><i class="fas fa-trash"></i></button>
 									</form>
 								</td>
+								@endcan
 							</tr>
 							@endforeach
 						</tbody>

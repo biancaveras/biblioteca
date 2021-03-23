@@ -23,7 +23,9 @@ SIB | Livros
 								<th>Nacionalidade</th>
 								<th>Autor</th>
 								<th>Sinopse</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</thead>
 						<tfoot>
@@ -33,7 +35,9 @@ SIB | Livros
 								<th>Nacionalidade</th>
 								<th>Autor</th>
 								<th>Sinopse</th>
+								@can('super-user')
 								<th>Opções</th>
+								@endcan
 							</tr>
 						</tfoot>
 						<tbody>
@@ -44,7 +48,7 @@ SIB | Livros
 								<td>{{ $livro->nacionalidade }}</td>
 								<td>{{ $livro->autor }}</td>
 								<td>{{ $livro->sinopse }}</td>
-
+								@can('super-user')
 								<td>
 									<button title="Editar" class="btn btn-success btn-sm" onclick="window.location.href='{{route('livro.editar', [$livro->id])}}'"><i class="fas fa-edit"></i></button>
 									<form action="{{route('livro.excluir', [$livro->id])}}" method="POST">
@@ -55,6 +59,7 @@ SIB | Livros
 										</button>
 									</form>
 								</td>
+								@endcan
 							</tr>
 							@endforeach
 
