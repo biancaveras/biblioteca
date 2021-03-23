@@ -7,6 +7,9 @@ use App\Models\Livro;
 
 class LivroController extends Controller
 {
+    public function __construct() {
+        $this->middleware(['auth']);
+    }
 
     public function index()
     {

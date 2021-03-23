@@ -99,7 +99,7 @@ Route::put('/update-livro/{id}',
 
 Route::get('/', 
     [EmprestimoController::class, 'index'])
-->name('emprestimo.index');
+->name('emprestimo.index')->middleware(['auth']);
 
 Route::get('/novo-emprestimo/create', 
     [EmprestimoController::class,'criar']
@@ -130,7 +130,6 @@ Route::get('/esqueceusenha', function () {
     return view('esqueceusenha');
 })->name('esqueceusenha');
 
-Route::get('/template', function () {
-    return view('sitelayout.template');
-});
 
+require __DIR__.'/auth.php';
+ 

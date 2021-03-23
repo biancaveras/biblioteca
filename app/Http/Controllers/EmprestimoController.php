@@ -12,6 +12,9 @@ use App\Providers\RouteServiceProvider;
 
 class EmprestimoController extends Controller
 {
+    public function __construct() {
+        $this->middleware(['auth']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +22,9 @@ class EmprestimoController extends Controller
      */
     public function index()
     {
-        $emprestimos = Emprestimo::join('clientes', 'cliente_id', '=', 'clientes.id')
-        ->join('funcionarios', 'funcionario_id', '=', 'funcionarios.id')
-        ->join('livros', 'livro_id', '=', 'livros.id')
-        ->get();
+        $emprestimos = Emprestimo::all();
 
-        return view('inicio')->with('emprestimos', $emprestimos);
+        return view('welcome')->with('emprestimos', $emprestimos);
     }
 
 
@@ -105,11 +105,7 @@ class EmprestimoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $emprestimo = Emprestimo::find($id)
-        ->join('clientes', 'cliente_id', '=', 'clientes.id')
-        ->join('funcionarios', 'funcionario_id', '=', 'funcionarios.id')
-        ->join('livros', 'livro_id', '=', 'livros.id')
-        ->get();
+        $emprestimo = Emprestimo::find($id);
 
         if ($emprestimo) {
             $emprestimo->update([
@@ -121,7 +117,7 @@ class EmprestimoController extends Controller
             ]);
             return redirect(route('emprestimo.index'));
         }else{
-            return redirect(route('emprestimo.index'));
+            return "erro";
         }
 
     }

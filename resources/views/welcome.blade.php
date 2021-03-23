@@ -18,7 +18,7 @@ SIB | Início
 							<div class="row no-gutters align-items-center">
 								<div class="col-auto">
 									<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><i class="fas fa-clipboard-list"></i> 
-									Adicionar um empréstimo  </div>
+									Adicionar um empréstimo</div>
 								</div>
 							</div>
 						</div>

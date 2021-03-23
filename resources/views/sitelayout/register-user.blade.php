@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SIB | Login</title>
+    <title>SIB | Registrar Usuário</title>
     <link rel="shortcut icon" href="{{asset('resume/img/icon.png')}}" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
@@ -39,54 +39,57 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">SIB Login</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">SIB Registrar Usuário</h1>
                                     </div>
-                                    <form class="user" action="{{url('/login')}}" method="POST">
+                                    <form class="user" action="{{url('/register')}}" method="POST">
                                         @csrf
                                         <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                            id="name" name="name" aria-describedby="emailHelp"
+                                            placeholder="Digite seu nome" required="required">
+                                        </div>
+                                        <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                            id="exampleInputEmail" required="required" name="email" aria-describedby="emailHelp"
-                                            placeholder="Digite seu e-mail">
+                                            id="exampleInputEmail" name="email" aria-describedby="emailHelp"
+                                            placeholder="Digite seu e-mail" required="required">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" required="required" name="password" placeholder="Senha">
+                                            id="password" name="password" placeholder="Senha" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" class="form-control form-control-user"
+                                            id="password_confirmation" name="password_confirmation" placeholder="Confirmar Senha" required="required">
                                         </div>
                                         <button type="submit" class="btn btn-info btn-user btn-block">
-                                            Login
+                                            Registrar
                                         </button>
                                         <hr>
                                         <div class="text-center">
-                                            <a class="small" href="{{url('/register')}}">Registrar novo usuário</a>
+                                            <a class="small" href="{{route('login')}}">Já tem uma conta? Faça login!</a>
                                         </div>
-                                        <!--
-                                        <div class="text-center">
-                                            <a class="small" href="{{route('password.request')}}">Esqueceu a senha?</a>
-                                        </div>
-                                    -->
-                                    
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
 
     </div>
 
-</div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{asset('resume/vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('resume/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<!-- Bootstrap core JavaScript-->
-<script src="{{asset('resume/vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('resume/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{asset('resume/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="{{asset('resume/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="{{asset('resume/js/sb-admin-2.min.js')}}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{{asset('resume/js/sb-admin-2.min.js')}}"></script>
 
 </body>
 

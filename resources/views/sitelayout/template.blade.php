@@ -107,11 +107,16 @@
                 </div>
             </li>
             <hr class="sidebar-divider my-0">
+            @if(Auth::check())
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('login')}}">
+                <a class="nav-link" href="#" onclick="document.getElementById('logout').submit(); return false">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Sair</span></a>
             </li>
+            <form action="{{route('logout')}}" method="POST" id="logout">
+                @csrf
+            </form>
+            @endif
 
         </ul>
         <!-- End of Sidebar -->
@@ -130,17 +135,6 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link" href="{{route('login')}}"  role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Sair</span>
-                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            </a>
-                        </li>
 
                     </ul>
 
